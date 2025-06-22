@@ -16,9 +16,16 @@ const upload = multer({ storage });
 
 // Upload route
 app.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    console.error('❌ No file received');
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+
   const fileUrl = `${req.protocol}://${req.get('host')}/${req.file.filename}`;
+  console.log('✅ File uploaded:', fileUrl);
   res.json({ url: fileUrl });
 });
+
 
 // Serve static audio
 app.use(express.static(path.join(__dirname, 'public')));
