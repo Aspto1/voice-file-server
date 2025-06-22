@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 const storage = multer.diskStorage({
   destination: 'public/',
   filename: (req, file, cb) => {
-    const uniqueName = Date.now() + '-' + file.originalname;
+    const uniqueName = `${Date.now()}-voice.mp3`;
     cb(null, uniqueName);
   }
 });
